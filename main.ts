@@ -1,18 +1,22 @@
-import yahooFinance from "yahoo-finance2"
-
 Deno.serve({
   handler: async (req) => {
     const url = new URL(req.url)
-    const query = url.searchParams.get("query") || "TSLA"
-    const queryOptions = {
-      period1:
-        new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString()
-          .split("T")[0],
-      period2: new Date().toISOString().split("T")[0],
-    }
+    const symbol = url.searchParams.get("query") || "TSLA"
+    const now = new Date()
+    // 1 month ago
+    const period1 = Math.floor(
+      new Date(now.setMonth(now.getMonth() - 1)).getTime() / 1000,
+    )
+    const period2 = Math.floor(now.getTime() / 1000)
 
-    const result = await yahooFinance.historical(query, queryOptions)
-    return new Response(JSON.stringify(result), {
+    const reqUrl =
+      `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d`
+    const result = await fetch(reqUrl)
+    console.log(reqUrl)
+    const json = await result.json();
+    console.log(json)
+
+    return new Response(JSON.stringify(json), {
       headers: { "Content-Type": "application/json" },
     })
   },

@@ -3,8 +3,7 @@
     "dev": "deno run --allow-net --allow-env --watch main.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1",
-    "yahoo-finance2": "npm:yahoo-finance2@2.13.3"
+    "@std/assert": "jsr:@std/assert@1"
   },
   "deploy": {
     "project": "88f67a4f-7731-46f4-bb6f-a3a4aa8db000",
