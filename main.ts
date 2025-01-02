@@ -5,7 +5,7 @@ Deno.serve({
     const now = new Date()
     // 1 month ago
     const period1 = Math.floor(
-      new Date(now.setMonth(now.getMonth() - 1)).getTime() / 1000,
+      new Date(new Date().setMonth(now.getMonth() - 1)).getTime() / 1000,
     )
     const period2 = Math.floor(now.getTime() / 1000)
 
@@ -14,10 +14,9 @@ Deno.serve({
     const result = await fetch(reqUrl)
     console.log(reqUrl)
     const json = await result.json();
-    console.log(json)
 
-    return new Response(JSON.stringify(json), {
-      headers: { "Content-Type": "application/json" },
-    })
+    // json.chart.result[0].indicators.adjclose[0].adjclose
+
+    return Response.json(json)
   },
 })
