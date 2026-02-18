@@ -11,7 +11,11 @@ Deno.serve({
 
     const reqUrl =
       `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?period1=${period1}&period2=${period2}&interval=1d`
-    const result = await fetch(reqUrl)
+    const result = await fetch(reqUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
+      },
+    })
     console.log(reqUrl)
     const json = await result.json();
 
